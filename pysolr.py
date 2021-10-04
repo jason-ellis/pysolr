@@ -355,7 +355,7 @@ class Solr(object):
         session=None,
     ):
         self.decoder = decoder or json.JSONDecoder()
-        self.encoder = encoder or json.JSONEncoder()
+        self.encoder = encoder or json.JSONEncoder(default=str)
         self.url = url
         self.timeout = timeout
         self.log = self._get_log()
