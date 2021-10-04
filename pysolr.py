@@ -1037,7 +1037,7 @@ class Solr(object):
                 # convert dict to list
                 message = [message]
                 # json array of docs
-            if isinstance(message, list):
+            if isinstance(message, (list, tuple)):
                 # convert to string
                 cleaned_message = [self._build_json_doc(doc) for doc in message]
                 m = self.encoder.encode(cleaned_message).encode("utf-8")
