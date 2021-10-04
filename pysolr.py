@@ -355,7 +355,7 @@ class Solr(object):
         session=None,
     ):
         self.decoder = decoder or json.JSONDecoder()
-        self.encoder = encoder or json.JSONEncoder(default=str)
+        self.encoder = encoder or json.JSONEncoder()
         self.url = url
         self.timeout = timeout
         self.log = self._get_log()
@@ -1033,11 +1033,11 @@ class Solr(object):
             solrapi = "JSON"
             message = docs
             # single doc convert to array of docs
-            if isinstance(message, dict):
+            if isinstance(message, (dict, tuple)):
                 # convert dict to list
                 message = [message]
                 # json array of docs
-            if isinstance(message, (list, tuple)):
+            if isinstance(message, list):
                 # convert to string
                 cleaned_message = [self._build_json_doc(doc) for doc in message]
                 m = self.encoder.encode(cleaned_message).encode("utf-8")
